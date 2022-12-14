@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:odev_test/databases/mockup_data.dart';
 import 'package:odev_test/preferences/prefs_user.dart';
 import 'package:odev_test/provider/provider_homepage.dart';
 import 'package:odev_test/screens/home_screen.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PrefsUser.init();
+  await putData();
   runApp(const MyApp());
 }
 

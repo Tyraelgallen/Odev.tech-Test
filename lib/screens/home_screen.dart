@@ -2,7 +2,6 @@ import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:odev_test/databases/db1.dart';
-import 'package:odev_test/databases/mockup_data.dart';
 import 'package:odev_test/models/post_model.dart';
 import 'package:odev_test/preferences/prefs_user.dart';
 import 'package:odev_test/provider/provider_homepage.dart';
@@ -21,18 +20,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final scrollController = ScrollController();
-
-  @override
-  void initState() {
-    awaitData();
-
-    super.initState();
-  }
-
-  void awaitData() async {
-    await putData();
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,8 +108,7 @@ class ItemPost extends StatelessWidget {
         ),
         width: double.infinity,
         height: 205,
-        child: Expanded(
-            child: Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -206,6 +192,6 @@ class ItemPost extends StatelessWidget {
               ],
             )
           ],
-        )));
+        ));
   }
 }
