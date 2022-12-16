@@ -2,13 +2,14 @@ import 'package:odev_test/databases/db1.dart';
 import 'package:odev_test/models/post_model.dart';
 
 bool initialput = false;
+String text =
+    "The collapse of the online-advertising market in 2001 made marketing on the internet seem even less compelling.";
 
 final david1 = Post(
   id: 1,
   name: "David Smith",
   date: "10 hours ago",
-  text:
-      "The collapse of the online-advertising market in 2001 made marketing on the internet seem even less compelling. Website usability, press releases",
+  text: text,
   likes: 15,
   shares: 2,
   comments: 5,
@@ -18,8 +19,7 @@ final john1 = Post(
   id: 2,
   name: "John Doe",
   date: "5 hours ago",
-  text:
-      "The collapse of the online-advertising market in 2001 made marketing on the internet seem even less compelling.",
+  text: text,
   likes: 1,
   shares: 5,
   comments: 3,
@@ -29,8 +29,7 @@ final jane1 = Post(
   id: 3,
   name: "Jane Doe",
   date: "4 hours ago",
-  text:
-      "The collapse of the online-advertising market in 2001 made marketing on the internet seem even less compelling.",
+  text: text,
   likes: 20,
   shares: 10,
   comments: 0,
@@ -40,8 +39,7 @@ final john2 = Post(
   id: 4,
   name: "John Doe",
   date: "3 hours ago",
-  text:
-      "The collapse of the online-advertising market in 2001 made marketing on the internet seem even less compelling. Website usability, press releases",
+  text: text,
   likes: 30,
   shares: 34,
   comments: 15,
@@ -68,8 +66,7 @@ Future moreData() async {
 final david2 = Post(
   name: "David Smith",
   date: "1 hours ago",
-  text:
-      "The collapse of the online-advertising market in 2001 made marketing on the internet seem even less compelling. Website usability, press releases",
+  text: text,
   likes: 15,
   shares: 2,
   comments: 5,
@@ -78,8 +75,7 @@ final david2 = Post(
 final david3 = Post(
   name: "David Smith",
   date: "2 hours ago",
-  text:
-      "The collapse of the online-advertising market in 2001 made marketing on the internet seem even less compelling. Website usability, press releases",
+  text: text,
   likes: 15,
   shares: 2,
   comments: 5,
@@ -88,8 +84,7 @@ final david3 = Post(
 final john3 = Post(
   name: "John Doe",
   date: "5 minutes ago",
-  text:
-      "The collapse of the online-advertising market in 2001 made marketing on the internet seem even less compelling.",
+  text: text,
   likes: 1,
   shares: 5,
   comments: 3,
@@ -98,8 +93,7 @@ final john3 = Post(
 final jane2 = Post(
   name: "Jane Doe",
   date: "2 hours ago",
-  text:
-      "The collapse of the online-advertising market in 2001 made marketing on the internet seem even less compelling.",
+  text: text,
   likes: 20,
   shares: 10,
   comments: 0,
@@ -108,8 +102,7 @@ final jane2 = Post(
 final jane3 = Post(
   name: "Jane Doe",
   date: "3 hours ago",
-  text:
-      "The collapse of the online-advertising market in 2001 made marketing on the internet seem even less compelling.",
+  text: text,
   likes: 20,
   shares: 10,
   comments: 0,

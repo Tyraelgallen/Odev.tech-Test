@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:odev_test/styles/styles.dart';
 
 class ButtonNavigator extends StatelessWidget {
   const ButtonNavigator({
@@ -14,14 +14,11 @@ class ButtonNavigator extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, navigate);
-        },
-        backgroundColor: const Color.fromARGB(255, 174, 90, 207),
-        child: navigate == "home"
-            ? const Icon(CupertinoIcons.home)
-            : const Icon(CupertinoIcons.add),
-      ),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, navigate);
+          },
+          backgroundColor: const Color.fromARGB(255, 174, 90, 207),
+          child: navigate == "home" ? Styles.homeIcon : Styles.addIcon),
     );
   }
 }

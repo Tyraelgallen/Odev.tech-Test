@@ -1,10 +1,9 @@
-import 'package:fluentui_icons/fluentui_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:odev_test/databases/db1.dart';
 import 'package:odev_test/models/post_model.dart';
 import 'package:odev_test/preferences/prefs_user.dart';
 import 'package:odev_test/provider/provider_homepage.dart';
+import 'package:odev_test/styles/styles.dart';
 import 'package:odev_test/widgets/appbar.dart';
 import 'package:odev_test/widgets/button_navigator.dart';
 import 'package:odev_test/widgets/delete_post.dart';
@@ -80,10 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
           floatingActionButton: const ButtonNavigator(
             navigate: "publish",
           ),
-          bottomNavigationBar: const BottomAppBar(
-            color: Color.fromARGB(255, 145, 77, 209),
-            shape: CircularNotchedRectangle(),
-            child: Padding(
+          bottomNavigationBar: BottomAppBar(
+            color: Styles.primaryColor,
+            shape: const CircularNotchedRectangle(),
+            child: const Padding(
               padding: EdgeInsets.all(30),
             ),
           ),
@@ -125,20 +124,17 @@ class ItemPost extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            onPressed: () {
-                              editDialog(context, registro);
-                            },
-                            iconSize: 20,
-                            icon: const Icon(FluentSystemIcons
-                                .ic_fluent_document_edit_regular),
-                          ),
+                              onPressed: () {
+                                editDialog(context, registro);
+                              },
+                              iconSize: 20,
+                              icon: Styles.editIcon),
                           IconButton(
                               onPressed: () {
                                 deleteDialog(context, registro.id!);
                               },
                               iconSize: 20,
-                              icon: const Icon(
-                                  FluentSystemIcons.ic_fluent_delete_regular))
+                              icon: Styles.editIcon),
                         ],
                       )
                     : const SizedBox(
@@ -160,34 +156,22 @@ class ItemPost extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(width: 20),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(CupertinoIcons.suit_heart_fill,
-                      color: Colors.grey),
-                ),
+                IconButton(onPressed: () {}, icon: Styles.heartIcon),
                 Text(
                   registro.likes.toString(),
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  style: Styles.interactbuttons,
                 ),
                 const SizedBox(width: 20),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(CupertinoIcons.text_bubble_fill,
-                      color: Colors.grey),
-                ),
+                IconButton(onPressed: () {}, icon: Styles.commentIcon),
                 Text(
                   registro.comments.toString(),
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  style: Styles.interactbuttons,
                 ),
                 const SizedBox(width: 20),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(CupertinoIcons.share_solid,
-                      color: Colors.grey),
-                ),
+                IconButton(onPressed: () {}, icon: Styles.shareIcon),
                 Text(
                   registro.shares.toString(),
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  style: Styles.interactbuttons,
                 ),
               ],
             )

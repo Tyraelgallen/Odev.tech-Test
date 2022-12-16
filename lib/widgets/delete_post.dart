@@ -2,6 +2,7 @@ import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:odev_test/databases/db1.dart';
 import 'package:odev_test/provider/provider_homepage.dart';
+import 'package:odev_test/styles/styles.dart';
 import 'package:odev_test/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,7 @@ Future deleteDialog(context, int id) async {
                   radius: 17,
                   wsize: 0.4,
                   text: "Yes",
-                  color: const Color.fromARGB(255, 145, 77, 209),
+                  color: Styles.primaryColor,
                   function: () async {
                     FocusScope.of(context).unfocus();
                     await MyDatabase.instance.deleteById(id);
@@ -44,7 +45,7 @@ Future deleteDialog(context, int id) async {
                   radius: 17,
                   wsize: 0.4,
                   text: "No",
-                  color: const Color.fromARGB(255, 174, 90, 207),
+                  color: Styles.secondaryColor,
                   function: () async {
                     FocusScope.of(context).unfocus();
                     Navigator.pop(context);

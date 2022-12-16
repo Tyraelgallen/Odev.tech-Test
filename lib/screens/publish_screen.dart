@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:fluentui_icons/fluentui_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:odev_test/databases/db1.dart';
@@ -9,6 +7,7 @@ import 'package:odev_test/databases/mockup_data.dart';
 import 'package:odev_test/models/post_model.dart';
 import 'package:odev_test/preferences/prefs_user.dart';
 import 'package:odev_test/provider/provider_homepage.dart';
+import 'package:odev_test/styles/styles.dart';
 import 'package:odev_test/widgets/appbar.dart';
 import 'package:odev_test/widgets/button_navigator.dart';
 import 'package:odev_test/widgets/custom_button.dart';
@@ -60,8 +59,7 @@ class _PublishScreenState extends State<PublishScreen> {
               usertag: false,
             ),
             actions: [
-              IconButton(
-                  onPressed: () {}, icon: const Icon(CupertinoIcons.search)),
+              IconButton(onPressed: () {}, icon: Styles.searchIcon),
               const Popup(),
               const SizedBox(width: 10),
             ],
@@ -83,8 +81,7 @@ class _PublishScreenState extends State<PublishScreen> {
                           onPressed: () {
                             Navigator.pushReplacementNamed(context, "home");
                           },
-                          icon: const Icon(
-                              FluentSystemIcons.ic_fluent_delete_regular)),
+                          icon: Styles.deleteIcon),
                     ],
                   ),
                 ),
@@ -129,7 +126,7 @@ class _PublishScreenState extends State<PublishScreen> {
                             child: IconButton(
                                 onPressed: () {},
                                 color: Colors.grey[500],
-                                icon: const Icon(Icons.add_reaction_outlined)),
+                                icon: Styles.emojiIcon),
                           )
                         ]),
                       ],
@@ -141,7 +138,7 @@ class _PublishScreenState extends State<PublishScreen> {
                   radius: 17,
                   wsize: 0.9,
                   text: "PUBLISH",
-                  color: const Color.fromARGB(255, 145, 77, 209),
+                  color: Styles.primaryColor,
                   function: () async {
                     FocusScope.of(context).unfocus();
                     final json = Post(
@@ -163,7 +160,7 @@ class _PublishScreenState extends State<PublishScreen> {
                   radius: 17,
                   wsize: 0.9,
                   text: "ADD MOCKUP DATA +5",
-                  color: const Color.fromARGB(255, 174, 90, 207),
+                  color: Styles.secondaryColor,
                   function: () async {
                     FocusScope.of(context).unfocus();
                     moreData();
@@ -181,16 +178,16 @@ class _PublishScreenState extends State<PublishScreen> {
             navigate: "home",
           ),
           bottomNavigationBar: isReadyToDraw
-              ? const BottomAppBar(
-                  color: Color.fromARGB(255, 145, 77, 209),
-                  shape: CircularNotchedRectangle(),
-                  child: Padding(
+              ? BottomAppBar(
+                  color: Styles.primaryColor,
+                  shape: const CircularNotchedRectangle(),
+                  child: const Padding(
                     padding: EdgeInsets.all(30),
                   ),
                 )
-              : const BottomAppBar(
-                  color: Color.fromARGB(255, 145, 77, 209),
-                  child: Padding(
+              : BottomAppBar(
+                  color: Styles.primaryColor,
+                  child: const Padding(
                     padding: EdgeInsets.all(30),
                   ),
                 ),

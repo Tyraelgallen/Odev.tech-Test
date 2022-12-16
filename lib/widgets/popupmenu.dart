@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:odev_test/preferences/prefs_user.dart';
 import 'package:odev_test/provider/provider_homepage.dart';
+import 'package:odev_test/styles/styles.dart';
 import 'package:provider/provider.dart';
 
 class Popup extends StatelessWidget {
@@ -17,7 +17,7 @@ class Popup extends StatelessWidget {
           Radius.circular(20.0),
         ),
       ),
-      icon: const Icon(CupertinoIcons.bars),
+      icon: Styles.barsIcon,
       itemBuilder: (context) => [
         // popupmenu item 1
         PopupMenuItem(

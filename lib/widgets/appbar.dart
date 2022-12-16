@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:odev_test/preferences/prefs_user.dart';
+import 'package:odev_test/styles/styles.dart';
 import 'package:odev_test/widgets/popupmenu.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(255, 174, 90, 207),
+      backgroundColor: Styles.secondaryColor,
       shadowColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       toolbarHeight: 80,
@@ -26,7 +26,7 @@ class CustomAppBar extends StatelessWidget {
       bottom: AppBar(
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        backgroundColor: const Color.fromARGB(255, 145, 77, 209),
+        backgroundColor: Styles.primaryColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(25.0),
@@ -46,7 +46,7 @@ class CustomAppBar extends StatelessWidget {
                 onPressed: () {
                   scrollController.jumpTo(0);
                 },
-                icon: const Icon(CupertinoIcons.arrow_up_circle_fill))
+                icon: Styles.arrowupIcon)
           ],
         ),
       ),
@@ -56,7 +56,7 @@ class CustomAppBar extends StatelessWidget {
         usertag: true,
       ),
       actions: [
-        IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.search)),
+        IconButton(onPressed: () {}, icon: Styles.searchIcon),
         const Popup(),
         const SizedBox(width: 10),
       ],
