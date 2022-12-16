@@ -1,5 +1,5 @@
-import 'package:odev_test/databases/db1.dart';
-import 'package:odev_test/models/post_model.dart';
+import 'package:odev_test/data/databases/db1.dart';
+import 'package:odev_test/data/models/post_model.dart';
 
 bool initialput = false;
 String text =

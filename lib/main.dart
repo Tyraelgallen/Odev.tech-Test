@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:odev_test/databases/mockup_data.dart';
-import 'package:odev_test/preferences/prefs_user.dart';
-import 'package:odev_test/provider/provider_homepage.dart';
-import 'package:odev_test/screens/home_screen.dart';
-import 'package:odev_test/screens/publish_screen.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:odev_test/data/preferences/prefs_user.dart';
+import 'package:odev_test/logic/bloc/db_get_bloc.dart';
+import 'package:odev_test/logic/cubit/db_crud_cubit.dart';
+import 'package:odev_test/logic/cubit/user_change_cubit.dart';
+
+import 'package:odev_test/presentation/screens/home_screen.dart';
+import 'package:odev_test/presentation/screens/publish_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PrefsUser.init();
-  await putData();
   runApp(const MyApp());
 }
 
@@ -18,11 +19,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => RefreshHome(),
-        )
+        BlocProvider<UserChangeCubit>(create: (context) => UserChangeCubit()),
+        BlocProvider<DbCrudCubit>(create: (context) => DbCrudCubit()),
+        // BlocProvider<DbGetBloc>(create: (context) => DbGetBloc()),
       ],
       child: MaterialApp(
         title: 'Test ODEV.TECH',

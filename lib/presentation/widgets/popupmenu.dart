@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:odev_test/preferences/prefs_user.dart';
-import 'package:odev_test/provider/provider_homepage.dart';
-import 'package:odev_test/styles/styles.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:odev_test/logic/cubit/user_change_cubit.dart';
+
+import 'package:odev_test/presentation/styles/styles.dart';
 
 class Popup extends StatelessWidget {
   const Popup({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final refreshhome = Provider.of<RefreshHome>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return PopupMenuButton<int>(
       shape: const RoundedRectangleBorder(
@@ -23,10 +23,11 @@ class Popup extends StatelessWidget {
         PopupMenuItem(
           value: 1,
           onTap: () {
-            PrefsUser.name = "Jane Doe";
-            PrefsUser.tag = "@janedoe_29";
+            // PrefsUser.name = "Jane Doe";
+            // PrefsUser.tag = "@janedoe_29";
 
-            refreshhome.updateWidget();
+            // refreshhome.updateWidget();
+            BlocProvider.of<UserChangeCubit>(context).toJane();
           },
           child: Row(
             children: [
@@ -45,9 +46,10 @@ class Popup extends StatelessWidget {
         PopupMenuItem(
           value: 2,
           onTap: () {
-            PrefsUser.name = "John Doe";
-            PrefsUser.tag = "@johndoe_27";
-            refreshhome.updateWidget();
+            // PrefsUser.name = "John Doe";
+            // PrefsUser.tag = "@johndoe_27";
+            // refreshhome.updateWidget();
+            BlocProvider.of<UserChangeCubit>(context).toJohn();
           },
           child: Row(
             children: [
@@ -65,9 +67,10 @@ class Popup extends StatelessWidget {
         PopupMenuItem(
           value: 3,
           onTap: () {
-            PrefsUser.name = "David Smith";
-            PrefsUser.tag = "@davidsmith_32";
-            refreshhome.updateWidget();
+            // PrefsUser.name = "David Smith";
+            // PrefsUser.tag = "@davidsmith_32";
+            // refreshhome.updateWidget();
+            BlocProvider.of<UserChangeCubit>(context).toDavid();
           },
           child: Row(
             children: [

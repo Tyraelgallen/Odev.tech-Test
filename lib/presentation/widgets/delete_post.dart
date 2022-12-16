@@ -1,14 +1,13 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:odev_test/databases/db1.dart';
-import 'package:odev_test/provider/provider_homepage.dart';
-import 'package:odev_test/styles/styles.dart';
-import 'package:odev_test/widgets/custom_button.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:odev_test/logic/cubit/db_crud_cubit.dart';
+
+import 'package:odev_test/presentation/styles/styles.dart';
+import 'package:odev_test/presentation/widgets/custom_button.dart';
 
 Future deleteDialog(context, int id) async {
-  final refreshhome = Provider.of<RefreshHome>(context, listen: false);
-
   return showDialog(
       barrierDismissible: true,
       context: context,
@@ -34,9 +33,8 @@ Future deleteDialog(context, int id) async {
                   color: Styles.primaryColor,
                   function: () async {
                     FocusScope.of(context).unfocus();
-                    await MyDatabase.instance.deleteById(id);
+                    BlocProvider.of<DbCrudCubit>(context).delete(id);
                     Navigator.pop(context);
-                    refreshhome.updateWidget();
                   },
                 ),
                 const SizedBox(height: 10),

@@ -1,6 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:odev_test/models/post_model.dart';
+import 'package:odev_test/data/models/post_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

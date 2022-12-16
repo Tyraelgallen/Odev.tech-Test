@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:odev_test/databases/db1.dart';
-import 'package:odev_test/models/post_model.dart';
-import 'package:odev_test/preferences/prefs_user.dart';
-import 'package:odev_test/provider/provider_homepage.dart';
-import 'package:odev_test/styles/styles.dart';
-import 'package:odev_test/widgets/appbar.dart';
-import 'package:odev_test/widgets/button_navigator.dart';
-import 'package:odev_test/widgets/delete_post.dart';
-import 'package:odev_test/widgets/edit_post.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:odev_test/data/databases/db1.dart';
+import 'package:odev_test/data/models/post_model.dart';
+import 'package:odev_test/data/preferences/prefs_user.dart';
+import 'package:odev_test/logic/bloc/db_get_bloc.dart';
+import 'package:odev_test/logic/cubit/db_crud_cubit.dart';
+import 'package:odev_test/logic/cubit/user_change_cubit.dart';
+
+import 'package:odev_test/presentation/styles/styles.dart';
+import 'package:odev_test/presentation/widgets/appbar.dart';
+import 'package:odev_test/presentation/widgets/button_navigator.dart';
+import 'package:odev_test/presentation/widgets/delete_post.dart';
+import 'package:odev_test/presentation/widgets/edit_post.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,24 +25,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<DbCrudCubit>(context).insertmockup(true);
     final size = MediaQuery.of(context).size;
-    return Consumer<RefreshHome>(
-      builder: (context, provider, child) {
-        return Scaffold(
-          backgroundColor: Colors.grey[200],
-          appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(140),
-              child: CustomAppBar(
-                scrollController: scrollController,
-              )),
-          body: SingleChildScrollView(
-            controller: scrollController,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  SizedBox(height: size.height * 0.01),
-                  FutureBuilder(
+    return Scaffold(
+      backgroundColor: Colors.grey[200],
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(140),
+          child: CustomAppBar(
+            scrollController: scrollController,
+          )),
+      body: SingleChildScrollView(
+        controller: scrollController,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              SizedBox(height: size.height * 0.01),
+              BlocBuilder<DbCrudCubit, DbCrudState>(
+                builder: (context, state) {
+                  return FutureBuilder(
                     future: MyDatabase.instance.getAll(),
                     builder: ((context, snapshot) {
                       if (snapshot.hasData) {
@@ -68,26 +72,25 @@ class _HomeScreenState extends State<HomeScreen> {
                         return const Center(child: CircularProgressIndicator());
                       }
                     }),
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                ],
+                  );
+                },
               ),
-            ),
+              SizedBox(height: size.height * 0.03),
+            ],
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: const ButtonNavigator(
-            navigate: "publish",
-          ),
-          bottomNavigationBar: BottomAppBar(
-            color: Styles.primaryColor,
-            shape: const CircularNotchedRectangle(),
-            child: const Padding(
-              padding: EdgeInsets.all(30),
-            ),
-          ),
-        );
-      },
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: const ButtonNavigator(
+        navigate: "publish",
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Styles.primaryColor,
+        shape: const CircularNotchedRectangle(),
+        child: const Padding(
+          padding: EdgeInsets.all(30),
+        ),
+      ),
     );
   }
 }
@@ -116,31 +119,34 @@ class ItemPost extends StatelessWidget {
                 UserInfo(
                   name: registro.name,
                   date: registro.date,
-                  usertag: true,
                 ),
-                PrefsUser.name == registro.name
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                editDialog(context, registro);
-                              },
-                              iconSize: 20,
-                              icon: Styles.editIcon),
-                          IconButton(
-                              onPressed: () {
-                                deleteDialog(context, registro.id!);
-                              },
-                              iconSize: 20,
-                              icon: Styles.editIcon),
-                        ],
-                      )
-                    : const SizedBox(
-                        height: 0,
-                        width: 0,
-                      )
+                BlocBuilder<UserChangeCubit, UserChangeState>(
+                  builder: (context, state) {
+                    return PrefsUser.name == registro.name
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    editDialog(context, registro);
+                                  },
+                                  iconSize: 20,
+                                  icon: Styles.editIcon),
+                              IconButton(
+                                  onPressed: () {
+                                    deleteDialog(context, registro.id!);
+                                  },
+                                  iconSize: 20,
+                                  icon: Styles.deleteIcon),
+                            ],
+                          )
+                        : const SizedBox(
+                            height: 0,
+                            width: 0,
+                          );
+                  },
+                ),
               ],
             ),
             const Divider(),

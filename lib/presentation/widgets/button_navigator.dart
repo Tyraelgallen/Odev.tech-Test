@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:odev_test/styles/styles.dart';
+import 'package:odev_test/presentation/styles/styles.dart';
 
 class ButtonNavigator extends StatelessWidget {
   const ButtonNavigator({

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:odev_test/databases/db1.dart';
-import 'package:odev_test/models/post_model.dart';
-import 'package:odev_test/provider/provider_homepage.dart';
-import 'package:odev_test/styles/styles.dart';
-import 'package:odev_test/widgets/custom_button.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:odev_test/data/models/post_model.dart';
+import 'package:odev_test/logic/cubit/db_crud_cubit.dart';
+
+import 'package:odev_test/presentation/styles/styles.dart';
+import 'package:odev_test/presentation/widgets/custom_button.dart';
 
 Future editDialog(context, Post item) async {
-  final refreshhome = Provider.of<RefreshHome>(context, listen: false);
   final size = MediaQuery.of(context).size;
 
   return showDialog(
@@ -63,9 +63,9 @@ Future editDialog(context, Post item) async {
                     color: Styles.primaryColor,
                     function: () async {
                       FocusScope.of(context).unfocus();
-                      await MyDatabase.instance.update(item);
+                      // await MyDatabase.instance.update(item);
+                      BlocProvider.of<DbCrudCubit>(context).edit(item);
                       Navigator.pop(context);
-                      refreshhome.updateWidget();
                     },
                   ),
                 ],
