@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:odev_test/data/models/post_model.dart';
+import 'package:odev_test/data/preferences/prefs_user.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -52,6 +53,25 @@ class MyDatabase {
 
     final List<Map<String, dynamic>> maps =
         await db.query(tablaSQL1, orderBy: "id DESC");
+    return List.generate(
+      maps.length,
+      (i) => Post(
+        id: maps[i]['id'],
+        name: maps[i]['name'],
+        date: maps[i]['date'],
+        text: maps[i]['text'],
+        likes: maps[i]['likes'],
+        shares: maps[i]['shares'],
+        comments: maps[i]['comments'],
+      ),
+    );
+  }
+
+  Future<List<Post>> getAllbyName() async {
+    final db = await instance.database;
+
+    final List<Map<String, dynamic>> maps = await db.query(tablaSQL1,
+        where: "name = ?", whereArgs: [PrefsUser.name], orderBy: "id DESC");
     return List.generate(
       maps.length,
       (i) => Post(

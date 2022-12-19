@@ -12,6 +12,7 @@ import 'package:odev_test/presentation/widgets/appbar.dart';
 import 'package:odev_test/presentation/widgets/button_navigator.dart';
 import 'package:odev_test/presentation/widgets/delete_post.dart';
 import 'package:odev_test/presentation/widgets/edit_post.dart';
+import 'package:readmore/readmore.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -112,7 +113,7 @@ class ItemPost extends StatelessWidget {
           color: Colors.white,
         ),
         width: double.infinity,
-        height: 205,
+        // height: 205,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -155,10 +156,16 @@ class ItemPost extends StatelessWidget {
             const Divider(),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text(registro.text,
-                  textAlign: TextAlign.start,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis),
+              child: ReadMoreText(
+                registro.text,
+                trimLines: 4,
+                trimMode: TrimMode.Line,
+                trimCollapsedText: "Read More",
+                trimExpandedText: "Read Less",
+                textAlign: TextAlign.start,
+                lessStyle: Styles.styleReadMore,
+                moreStyle: Styles.styleReadMore,
+              ),
             ),
             const Divider(),
             Row(

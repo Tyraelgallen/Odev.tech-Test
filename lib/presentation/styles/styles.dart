@@ -44,7 +44,11 @@ class Styles {
   static Icon barsIcon = const Icon(CupertinoIcons.bars);
 
   static Icon location =
-      const Icon(Icons.location_on_outlined, color: Colors.grey);
-  static Icon company = const Icon(Icons.apartment_rounded, color: Colors.grey);
-  static Icon cellphone = const Icon(Icons.phone_iphone, color: Colors.grey);
+      Icon(Icons.location_on_outlined, color: Colors.grey.shade700);
+  static Icon company =
+      Icon(Icons.apartment_rounded, color: Colors.grey.shade700);
+  static Icon cellphone = Icon(Icons.phone_iphone, color: Colors.grey.shade700);
+
+  static final styleReadMore =
+      TextStyle(fontSize: 14, color: Colors.blue, fontWeight: FontWeight.bold);
 }
