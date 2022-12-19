@@ -6,6 +6,7 @@ import 'package:odev_test/logic/cubit/db_crud_cubit.dart';
 import 'package:odev_test/logic/cubit/user_change_cubit.dart';
 
 import 'package:odev_test/presentation/screens/home_screen.dart';
+import 'package:odev_test/presentation/screens/profile_screen.dart';
 import 'package:odev_test/presentation/screens/publish_screen.dart';
 
 void main() async {
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "home": (context) => const HomeScreen(),
           "publish": (context) => const PublishScreen(),
+          "profile": (context) => const ProfileScreen(),
         },
         theme: ThemeData(primarySwatch: Colors.purple),
       ),

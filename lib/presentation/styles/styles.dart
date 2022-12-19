@@ -12,6 +12,9 @@ class Styles {
   static TextStyle interactbuttons =
       const TextStyle(fontSize: 12, color: Colors.grey);
 
+  static TextStyle profiledescript =
+      const TextStyle(fontSize: 11, color: Colors.grey);
+
   static Icon editIcon =
       const Icon(FluentSystemIcons.ic_fluent_document_edit_regular);
 
@@ -27,6 +30,8 @@ class Styles {
   static Icon shareIcon =
       const Icon(CupertinoIcons.share_solid, color: Colors.grey);
 
+  static Icon shareIcon2 = const Icon(CupertinoIcons.share);
+
   static Icon searchIcon = const Icon(CupertinoIcons.search);
   static Icon emojiIcon = const Icon(Icons.add_reaction_outlined);
 
@@ -37,4 +42,9 @@ class Styles {
   static Icon addIcon = const Icon(CupertinoIcons.add);
 
   static Icon barsIcon = const Icon(CupertinoIcons.bars);
+
+  static Icon location =
+      const Icon(Icons.location_on_outlined, color: Colors.grey);
+  static Icon company = const Icon(Icons.apartment_rounded, color: Colors.grey);
+  static Icon cellphone = const Icon(Icons.phone_iphone, color: Colors.grey);
 }

@@ -31,8 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.grey[200],
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(140),
-          child: CustomAppBar(
-            scrollController: scrollController,
+          child: GestureDetector(
+            onTap: () => Navigator.pushReplacementNamed(context, "profile"),
+            child: CustomAppBar(
+              scrollController: scrollController,
+            ),
           )),
       body: SingleChildScrollView(
         controller: scrollController,

@@ -89,7 +89,12 @@ class UserInfo extends StatelessWidget {
           SizedBox(
             width: size.width * 0.15,
             child: CircleAvatar(
-              child: Image.asset("assets/$name.png"),
+              backgroundColor: Colors.transparent,
+              child: Image.asset(
+                "assets/$name.png",
+                width: 42,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Column(
