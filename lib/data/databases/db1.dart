@@ -13,6 +13,7 @@ class MyDatabase {
   MyDatabase._init();
 
   final String tablaSQL1 = 'tabla';
+  final String tablaSQL2 = 'comments';
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -38,6 +39,17 @@ class MyDatabase {
     likes INTEGER,
     shares INTEGER,
     comments INTEGER
+  )
+    ''');
+
+    await db.execute('''
+  CREATE TABLE $tablaSQL2(
+    comid INTEGER PRIMARY KEY AUTOINCREMENT,
+    linkid INTEGER,
+    name TEXT,
+    date TEXT,
+    text TEXT,
+    likes INTEGER
   )
     ''');
   }
@@ -120,5 +132,30 @@ class MyDatabase {
     final db = await instance.database;
     return await db.update(tablaSQL1, item.toJson(),
         where: 'id = ?', whereArgs: [item.id]);
+  }
+
+  //COMMENTS
+  Future<List<Comment>> getCommentsbyName(int id) async {
+    final db = await instance.database;
+
+    final List<Map<String, dynamic>> maps = await db.query(tablaSQL2,
+        where: "linkid = ?", whereArgs: [id], orderBy: "comid DESC");
+    return List.generate(
+      maps.length,
+      (i) => Comment(
+        linkid: maps[i]['linkid'],
+        comid: maps[i]['comid'],
+        name: maps[i]['name'],
+        date: maps[i]['date'],
+        text: maps[i]['text'],
+        likes: maps[i]['likes'],
+      ),
+    );
+  }
+
+  Future<void> insertComment(Comment item) async {
+    final db = await instance.database;
+    await db.insert(tablaSQL2, item.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 }

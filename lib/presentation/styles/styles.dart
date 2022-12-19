@@ -51,4 +51,6 @@ class Styles {
 
   static final styleReadMore =
       TextStyle(fontSize: 14, color: Colors.blue, fontWeight: FontWeight.bold);
+
+  static Icon send = Icon(Icons.send);
 }

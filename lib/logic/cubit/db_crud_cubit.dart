@@ -14,5 +14,6 @@ class DbCrudCubit extends Cubit<DbCrudState> {
   void insert(Post item) => emit(Dbinsert(item: item));
   void insertmockup(bool initialData) =>
       emit(DbInsertMockup(initialData: initialData));
+
   // void read() => emit(Dbread(list: []));
 }
