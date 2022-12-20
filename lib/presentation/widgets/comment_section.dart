@@ -1,5 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:readmore/readmore.dart';
+
 import 'package:odev_test/data/databases/db1.dart';
 import 'package:odev_test/data/models/post_model.dart';
 import 'package:odev_test/data/preferences/prefs_user.dart';
@@ -7,109 +10,108 @@ import 'package:odev_test/logic/cubit/comment_cubit.dart';
 import 'package:odev_test/logic/cubit/user_change_cubit.dart';
 import 'package:odev_test/presentation/styles/styles.dart';
 import 'package:odev_test/presentation/widgets/appbar.dart';
-import 'package:readmore/readmore.dart';
 
-String comment = "";
+TextEditingController textEditingController = TextEditingController();
 
-class CommentSection extends StatefulWidget {
-  const CommentSection({super.key, required this.index});
+class CommentSection extends StatelessWidget {
+  CommentSection({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
 
   final int index;
 
-  @override
-  State<CommentSection> createState() => _CommentSectionState();
-}
-
-class _CommentSectionState extends State<CommentSection> {
-  TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return BlocBuilder<CommentCubit, CommentState>(
       builder: (context, state) {
-        return Column(
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: size.width * 0.8,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: SizedBox(
-                      height: 50,
-                      child: TextFormField(
-                        controller: textEditingController,
-                        onChanged: (value) {
-                          setState(() {
-                            comment = value;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Add Comment",
-                          fillColor: Colors.grey,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
+        state.change;
+        return ((commentopen == true) && (state.index == index))
+            ? Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.8,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: SizedBox(
+                            height: 50,
+                            child: TextFormField(
+                              controller: textEditingController,
+                              decoration: const InputDecoration(
+                                hintText: "Add Comment",
+                                fillColor: Colors.grey,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(40)),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
+                      SizedBox(
+                          child: IconButton(
+                              onPressed: () async {
+                                if (textEditingController.text != "") {
+                                  final json = Comment(
+                                      linkid: index,
+                                      name: PrefsUser.name,
+                                      date: "Just Now",
+                                      text: textEditingController.text,
+                                      likes: 0);
+                                  textEditingController.text = "";
+
+                                  await MyDatabase.instance.insertComment(json);
+                                  BlocProvider.of<CommentCubit>(context)
+                                      .refresh(index, true);
+                                }
+                              },
+                              icon: Styles.send))
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: FutureBuilder(
+                      future: MyDatabase.instance.getCommentsbyName(index),
+                      builder: ((context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<Comment> registro = snapshot.data!;
+                          return registro.isEmpty
+                              ? const SizedBox(
+                                  height: 0,
+                                  width: 0,
+                                )
+                              : ListView.separated(
+                                  scrollDirection: Axis.vertical,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  primary: false,
+                                  shrinkWrap: true,
+                                  itemBuilder: ((context, index) {
+                                    return ItemComment(
+                                      index: index,
+                                      registro: registro[index],
+                                    );
+                                  }),
+                                  separatorBuilder: ((context, index) =>
+                                      const SizedBox(height: 10)),
+                                  itemCount: registro.length);
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      }),
                     ),
                   ),
-                ),
-                SizedBox(
-                    child: IconButton(
-                        onPressed: () async {
-                          if (comment != "") {
-                            final json = Comment(
-                                linkid: widget.index,
-                                name: PrefsUser.name,
-                                date: "Just Now",
-                                text: comment,
-                                likes: 0);
-                            await MyDatabase.instance.insertComment(json);
-                            textEditingController.clear;
-                            setState(() {
-                              comment = "";
-                            });
-                          }
-                        },
-                        icon: Styles.send))
-              ],
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: FutureBuilder(
-                future: MyDatabase.instance.getCommentsbyName(widget.index),
-                builder: ((context, snapshot) {
-                  if (snapshot.hasData) {
-                    List<Comment> registro = snapshot.data!;
-                    return registro.isEmpty
-                        ? SizedBox(
-                            height: 0,
-                            width: 0,
-                          )
-                        : ListView.separated(
-                            scrollDirection: Axis.vertical,
-                            physics: const NeverScrollableScrollPhysics(),
-                            primary: false,
-                            shrinkWrap: true,
-                            itemBuilder: ((context, index) {
-                              return ItemComment(
-                                index: index,
-                                registro: registro[index],
-                              );
-                            }),
-                            separatorBuilder: ((context, index) =>
-                                const SizedBox(height: 10)),
-                            itemCount: registro.length);
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                }),
-              ),
-            ),
-          ],
-        );
+                ],
+              )
+            : const SizedBox(
+                height: 0,
+                width: 0,
+              );
       },
     );
   }

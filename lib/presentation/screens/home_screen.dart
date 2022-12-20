@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // Future.delayed(Duration(seconds: 1)).then(
-    //     (value) => BlocProvider.of<DbCrudCubit>(context).refresh(commentopen));
+    //     (value) => BlocProvider.of<DbCrudCubit>(context).refresh(commentOpen));
     super.initState();
   }
 
@@ -108,19 +108,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-bool commentopen = false;
-
-class ItemPost extends StatefulWidget {
-  const ItemPost({super.key, required this.index, required this.registro});
+class ItemPost extends StatelessWidget {
+  ItemPost({super.key, required this.index, required this.registro});
 
   final int index;
   final Post registro;
 
-  @override
-  State<ItemPost> createState() => _ItemPostState();
-}
-
-class _ItemPostState extends State<ItemPost> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -138,25 +131,25 @@ class _ItemPostState extends State<ItemPost> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 UserInfo(
-                  name: widget.registro.name,
-                  date: widget.registro.date,
+                  name: registro.name,
+                  date: registro.date,
                 ),
                 BlocBuilder<UserChangeCubit, UserChangeState>(
                   builder: (context, state) {
-                    return PrefsUser.name == widget.registro.name
+                    return PrefsUser.name == registro.name
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
                                   onPressed: () {
-                                    editDialog(context, widget.registro);
+                                    editDialog(context, registro);
                                   },
                                   iconSize: 20,
                                   icon: Styles.editIcon),
                               IconButton(
                                   onPressed: () {
-                                    deleteDialog(context, widget.registro.id!);
+                                    deleteDialog(context, registro.id!);
                                   },
                                   iconSize: 20,
                                   icon: Styles.deleteIcon),
@@ -174,7 +167,7 @@ class _ItemPostState extends State<ItemPost> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: ReadMoreText(
-                widget.registro.text,
+                registro.text,
                 trimLines: 4,
                 trimMode: TrimMode.Line,
                 trimCollapsedText: "Read More",
@@ -191,38 +184,31 @@ class _ItemPostState extends State<ItemPost> {
                 const SizedBox(width: 20),
                 IconButton(onPressed: () {}, icon: Styles.heartIcon),
                 Text(
-                  widget.registro.likes.toString(),
+                  registro.likes.toString(),
                   style: Styles.interactbuttons,
                 ),
                 const SizedBox(width: 20),
                 IconButton(
                     onPressed: () {
-                      commentopen = !commentopen;
-                      // BlocProvider.of<CommentCubit>(context)
-                      //     .refresh(commentopen);
-                      setState(() {});
+                      BlocProvider.of<CommentCubit>(context)
+                          .refresh(index, false);
                     },
                     icon: Styles.commentIcon),
                 Text(
-                  widget.registro.comments.toString(),
+                  registro.comments.toString(),
                   style: Styles.interactbuttons,
                 ),
                 const SizedBox(width: 20),
                 IconButton(onPressed: () {}, icon: Styles.shareIcon),
                 Text(
-                  widget.registro.shares.toString(),
+                  registro.shares.toString(),
                   style: Styles.interactbuttons,
                 ),
               ],
             ),
-            commentopen == true
-                ? CommentSection(
-                    index: widget.index,
-                  )
-                : const SizedBox(
-                    height: 0,
-                    width: 0,
-                  )
+            CommentSection(
+              index: index,
+            )
           ],
         ));
   }

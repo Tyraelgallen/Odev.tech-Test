@@ -25,7 +25,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<UserChangeCubit>(create: (context) => UserChangeCubit()),
         BlocProvider<DbCrudCubit>(create: (context) => DbCrudCubit()),
-        BlocProvider<CommentCubit>(create: (context) => CommentCubit()),
+        BlocProvider<CommentCubit>(
+          create: (context) => CommentCubit(),
+          lazy: false,
+        ),
         // BlocProvider<DbGetBloc>(create: (context) => DbGetBloc()),
       ],
       child: MaterialApp(

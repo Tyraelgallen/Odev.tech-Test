@@ -4,7 +4,10 @@ import 'package:meta/meta.dart';
 part 'comment_state.dart';
 
 class CommentCubit extends Cubit<CommentState> {
-  CommentCubit() : super(CommentInitial());
+  CommentCubit() : super(CommentState(change: false));
 
-  void refresh(bool commentopen) => emit(DbRefresh(commentopen: commentopen));
+  void refresh(int index, bool change) =>
+      emit(CommentState(index: index, change: change));
+
+  void refreshcomment(bool change) => emit(CommentState(change: change));
 }
