@@ -63,8 +63,8 @@ class CommentSection extends StatelessWidget {
                                       text: textEditingController.text,
                                       likes: 0);
                                   textEditingController.text = "";
-
-                                  await MyDatabase.instance.insertComment(json);
+                                  BlocProvider.of<CommentCubit>(context)
+                                      .insert(index, true, json);
                                   BlocProvider.of<CommentCubit>(context)
                                       .refresh(index, true);
                                 }

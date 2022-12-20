@@ -6,14 +6,16 @@ bool commentopen = false;
 class CommentState {
   int? index;
   bool change;
-  CommentState({
-    this.index,
-    required this.change,
-  }) {
+  Comment? json;
+  CommentState({this.index, required this.change, this.json}) {
     print("index :" + index.toString() + ", change:" + change.toString());
     if ((index != null) && (change == false)) {
       print(commentopen);
       commentopen = !commentopen;
+    }
+
+    if (json != null) {
+      insert();
     }
 
     if (commentopen) {
@@ -21,5 +23,8 @@ class CommentState {
     } else {
       print(commentopen);
     }
+  }
+  void insert() async {
+    await MyDatabase.instance.insertComment(json!);
   }
 }
