@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:odev_test/data/preferences/prefs_user.dart';
-import 'package:odev_test/logic/bloc/db_get_bloc.dart';
+
 import 'package:odev_test/logic/cubit/comment_cubit.dart';
 import 'package:odev_test/logic/cubit/db_crud_cubit.dart';
 import 'package:odev_test/logic/cubit/user_change_cubit.dart';
@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
           create: (context) => CommentCubit(),
           lazy: false,
         ),
-        // BlocProvider<DbGetBloc>(create: (context) => DbGetBloc()),
       ],
       child: MaterialApp(
         title: 'Test ODEV.TECH',

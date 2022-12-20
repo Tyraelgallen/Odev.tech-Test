@@ -14,7 +14,7 @@ import 'package:odev_test/presentation/widgets/appbar.dart';
 TextEditingController textEditingController = TextEditingController();
 
 class CommentSection extends StatelessWidget {
-  CommentSection({
+  const CommentSection({
     Key? key,
     required this.index,
   }) : super(key: key);
@@ -106,6 +106,12 @@ class CommentSection extends StatelessWidget {
                       }),
                     ),
                   ),
+                  IconButton(
+                      onPressed: () {
+                        BlocProvider.of<CommentCubit>(context)
+                            .refresh(index, false);
+                      },
+                      icon: Styles.dropup),
                 ],
               )
             : const SizedBox(
@@ -138,49 +144,58 @@ class _ItemCommentState extends State<ItemComment> {
         ),
         width: double.infinity,
         // height: 205,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Container(
+                height: 60,
+                child: const VerticalDivider(
+                  thickness: 2,
+                  width: 5,
+                )),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UserInfo(
-                  name: widget.registro.name,
-                  date: widget.registro.date,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    UserInfo(
+                      name: widget.registro.name,
+                      date: widget.registro.date,
+                    ),
+                    BlocBuilder<UserChangeCubit, UserChangeState>(
+                      builder: (context, state) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                                onPressed: () {}, icon: Styles.heartIcon2),
+                            Text(
+                              widget.registro.likes.toString(),
+                              style: Styles.interactbuttons,
+                            ),
+                            const SizedBox(width: 20),
+                          ],
+                        );
+                      },
+                    ),
+                  ],
                 ),
-                BlocBuilder<UserChangeCubit, UserChangeState>(
-                  builder: (context, state) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(onPressed: () {}, icon: Styles.heartIcon),
-                        Text(
-                          widget.registro.likes.toString(),
-                          style: Styles.interactbuttons,
-                        ),
-                        const SizedBox(width: 20),
-                      ],
-                    );
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ReadMoreText(
+                    widget.registro.text,
+                    trimLines: 4,
+                    trimMode: TrimMode.Line,
+                    trimCollapsedText: "Read More",
+                    trimExpandedText: "Read Less",
+                    textAlign: TextAlign.start,
+                    lessStyle: Styles.styleReadMore,
+                    moreStyle: Styles.styleReadMore,
+                  ),
                 ),
               ],
             ),
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ReadMoreText(
-                widget.registro.text,
-                trimLines: 4,
-                trimMode: TrimMode.Line,
-                trimCollapsedText: "Read More",
-                trimExpandedText: "Read Less",
-                textAlign: TextAlign.start,
-                lessStyle: Styles.styleReadMore,
-                moreStyle: Styles.styleReadMore,
-              ),
-            ),
-            const Divider(),
           ],
         ));
   }

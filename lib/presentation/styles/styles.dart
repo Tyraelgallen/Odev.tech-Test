@@ -24,6 +24,8 @@ class Styles {
   static Icon heartIcon =
       const Icon(CupertinoIcons.suit_heart_fill, color: Colors.grey);
 
+  static Icon heartIcon2 = const Icon(CupertinoIcons.heart, color: Colors.red);
+
   static Icon commentIcon =
       const Icon(CupertinoIcons.text_bubble_fill, color: Colors.grey);
 
@@ -52,5 +54,6 @@ class Styles {
   static final styleReadMore =
       TextStyle(fontSize: 14, color: Colors.blue, fontWeight: FontWeight.bold);
 
-  static Icon send = Icon(Icons.send);
+  static Icon send = Icon(Icons.send, color: Colors.grey.shade700);
+  static Icon dropup = Icon(Icons.arrow_drop_up);
 }
